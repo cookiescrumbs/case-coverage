@@ -1,0 +1,14 @@
+{
+  "name": "@cookiescrumbs/case-coverage",
+  "version": "0.0.1",
+  "description": "Extracts use case coverage from a projects cucumber features",
+  "main": "index.js",
+  "scripts": {
+    "test": { "test": "jasmine" }
+  },
+  "author": "Steven James Cook",
+  "license": "ISC",
+  "devDependencies": {
+        "jasmine": "^3.3.1"
+    }
+}
