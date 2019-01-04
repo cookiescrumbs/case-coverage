@@ -1,5 +1,5 @@
-var CaseCoverage = require('../src/index.js').caseCoverage;
-var caseCoverage,
+var caseCoverage = require('../src/index.js');
+var builtCaseCoverage,
 domains,
 testTypes,
 junitXMLFolderPath;
@@ -12,22 +12,22 @@ describe('CaseCoverage', function() {
             'live-lesson'
         ];
         junitXMLFolderPath = './junitXML';
-        var testTypes = [
+        testTypes = [
             'automated',
             'manual'
         ];
-        caseCoverage = new CaseCoverage(domains, testTypes, junitXMLFolderPath);
-
+        builtCaseCoverage = caseCoverage.build(domains, testTypes, junitXMLFolderPath);
     });
+
     describe('build case coverage model', function() {
 
         it('should have an array of four objects, one for each domain', function () {
-            expect(caseCoverage.build().length).toEqual(domains.length);
+            expect(builtCaseCoverage.length).toEqual(domains.length);
         });
 
         describe('test type objects', function() {
             it('contains a total number', function() {
-                expect(caseCoverage.build()[0]['discovering-content']['automated'].total).toEqual(23);
+                expect(builtCaseCoverage[0]['discovering-content']['automated'].total).toEqual(23);
             });
         });
 
