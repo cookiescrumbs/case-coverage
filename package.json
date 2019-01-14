@@ -4,10 +4,7 @@
   "description": "Extracts use case coverage from a projects cucumber features",
   "main": "index.js",
   "scripts": {
-    "test": {
-      "test": "jasmine",
-      "cucumber": "cucumber.js"
-    }
+    "test": "jasmine"
   },
   "author": "Steven James Cook",
   "license": "ISC",
