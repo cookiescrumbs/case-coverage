@@ -25,24 +25,40 @@ describe('cucumberJSON', function() {
             });
         });
 
-        it('should call the exec method on shell with the correct cucumberjs command', function (done) {
+        describe('shell', () => {
             var config = {
                 domains: ['blah-blah'],
                 testType: 'manual',
                 featuresFolder: './spec/fixtures/features'
             };
-            var shellOut = {
-                stdout: JSON.stringify([{ jsonCucumber: 'feature: blah' }, { jsomCucumber: 'feature: blah' }])
-            };
-            spyOn(shell, 'exec').and.returnValue(shellOut);
-            var command = './node_modules/.bin/cucumber-js ./spec/fixtures/features --tags  "@blah-blah and @manual" --format=json';
-            cucumberJSON.fetch(config, shell)
+            it('should call the exec method on shell with the correct cucumberjs command', function (done) {
+                var shellOut = {
+                    stdout: JSON.stringify([{ jsonCucumber: 'feature: blah' }, { jsomCucumber: 'feature: blah' }])
+                };
+                spyOn(shell, 'exec').and.returnValue(shellOut);
+                var command = './node_modules/.bin/cucumber-js ./spec/fixtures/features --tags  "@blah-blah and @manual" --format=json';
+                cucumberJSON.fetch(config, shell)
                 .then(function (jsonArray) {
                     expect(shell.exec).toHaveBeenCalledWith(command, { silent: true, async: false });
                     expect(jsonArray).toEqual([[{ jsonCucumber: 'feature: blah' }, { jsomCucumber: 'feature: blah' }]]);
                     done();
                 });
+            });
+
+            it('should fail with an error if there is a problem when calling the exec command', (done) => {
+                var shellOut = {
+                    stderr: 'Error: something went wrong....'
+                };
+                spyOn(shell, 'exec').and.returnValue(shellOut);
+                cucumberJSON.fetch(config, shell)
+                .then(function (jsonArray) {
+                    expect(jsonArray).toEqual('Error: something went wrong....');
+                    done();
+                });
+            });
         });
+
+
 
     });
 
