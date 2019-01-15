@@ -37,6 +37,7 @@ describe('cucumberJSON', function() {
                 };
                 spyOn(shell, 'exec').and.returnValue(shellOut);
                 var command = './node_modules/.bin/cucumber-js ./spec/fixtures/features --tags  "@blah-blah and @manual" --format=json';
+
                 cucumberJSON.fetch(config, shell)
                 .then(function (jsonArray) {
                     expect(shell.exec).toHaveBeenCalledWith(command, { silent: true, async: false });
@@ -50,6 +51,28 @@ describe('cucumberJSON', function() {
                     ]);
                     done();
                 });
+            });
+
+            it('should call shell exec with cucumberJS command containing just the domain tag when the testType is false', function (done) {
+                var shellOut = {
+                    stdout: JSON.stringify([{ jsonCucumber: 'feature: blah' }, { jsomCucumber: 'feature: blah' }])
+                };
+                spyOn(shell, 'exec').and.returnValue(shellOut);
+                var command = './node_modules/.bin/cucumber-js ./spec/fixtures/features --tags  "@blah-blah" --format=json';
+                config.testType = false;
+                cucumberJSON.fetch(config, shell)
+                    .then(function (jsonArray) {
+                        expect(shell.exec).toHaveBeenCalledWith(command, { silent: true, async: false });
+                        expect(jsonArray).toEqual([
+                            {
+                                domain: 'blah-blah',
+                                testType: 'all tests',
+                                count: 2,
+                                jsonCucumber: [{ jsonCucumber: 'feature: blah' }, { jsomCucumber: 'feature: blah' }],
+                            }
+                        ]);
+                        done();
+                    });
             });
 
             it('should fail with an error if there is a problem when calling the exec command', (done) => {

@@ -15,7 +15,7 @@ function cucumberJSON(d) {
         resolve(
             {
                 domain: d,
-                testType: config.testType,
+                testType: config.testType || 'all tests',
                 count: jsonCucumber.length,
                 jsonCucumber: jsonCucumber
             }
@@ -24,11 +24,14 @@ function cucumberJSON(d) {
 }
 
 function tags(d) {
-    return "@" + d + " and @" + config.testType;
+    if (config.testType) {
+       return  "@" + d + " and @" + config.testType;
+    }
+    return "@" + d + "";
 }
 
-function command(d, ) {
-    console.log("./node_modules/.bin/cucumber-js " + config.featuresFolder + " --tags  \"" + tags(d) + "\" --format=json");
+function command(d) {
+    // console.log("./node_modules/.bin/cucumber-js " + config.featuresFolder + " --tags  \"" + tags(d) + "\" --format=json");
     return "./node_modules/.bin/cucumber-js " + config.featuresFolder + " --tags  \"" + tags(d) + "\" --format=json";
 }
 
