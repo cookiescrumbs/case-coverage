@@ -16,7 +16,7 @@ describe('cucumberJSON', function() {
                     'live-lesson',
                     'creating-and-adapting-content'
                 ],
-                testType: 'automated',
+                testType: 'manual',
                 featuresFolder: './spec/fixtures/features'
              }
             cucumberJSON.fetch(config, shell)
@@ -40,7 +40,14 @@ describe('cucumberJSON', function() {
                 cucumberJSON.fetch(config, shell)
                 .then(function (jsonArray) {
                     expect(shell.exec).toHaveBeenCalledWith(command, { silent: true, async: false });
-                    expect(jsonArray).toEqual([[{ jsonCucumber: 'feature: blah' }, { jsomCucumber: 'feature: blah' }]]);
+                    expect(jsonArray).toEqual([
+                        {
+                            domain: 'blah-blah',
+                            testType: 'manual',
+                            count: 2,
+                            jsonCucumber: [{ jsonCucumber: 'feature: blah' }, { jsomCucumber: 'feature: blah' }],
+                        }
+                    ]);
                     done();
                 });
             });
