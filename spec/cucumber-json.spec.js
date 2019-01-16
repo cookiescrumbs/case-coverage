@@ -5,12 +5,13 @@ describe('cucumberJSON', function() {
 
     describe('fetch array of cucumber JSON', function() {
         /*
-        This is an E2E test that hits the "fullstack" by running cucumberJS command using
-        the Shell npm package. It's stubbed out using the features files in the fixtures folder.
+        These tests in this block are E2E test that hit the "fullstack" by running cucumberJS command using
+        the Shell npm package. It is stubbed out using the feature files in the fixtures folder.
         */
-        it('has an array per domain', function() {
+        var config;
 
-            var config = {
+        beforeEach(function(){
+            config = {
                 domains: [
                     'discovering-content',
                     'live-lesson',
@@ -18,12 +19,28 @@ describe('cucumberJSON', function() {
                 ],
                 testType: 'manual',
                 featuresFolder: './spec/fixtures/features'
-             }
+            }
+        });
+
+        it('has an object per domain', function(done) {
             cucumberJSON.fetch(config, shell)
             .then(function(jsonArray) {
                 expect(jsonArray.length).toEqual(config.domains.length);
+                done();
             });
         });
+
+        it('domain objects should look like this', function(done) {
+            cucumberJSON.fetch(config, shell)
+                .then(function (jsonArray) {
+                    expect(jsonArray[0].domain).toEqual(config.domains[0]);
+                    expect(jsonArray[0].testType).toEqual(config.testType);
+                    expect(jsonArray[0].count).toEqual(2);
+                    expect(jsonArray[0].jsonCucumber.length).toEqual(2);
+                    done();
+                });
+        });
+    });
 
         describe('shell', function() {
             var config;
@@ -91,10 +108,5 @@ describe('cucumberJSON', function() {
                 });
             });
         });
-
-
-
-    });
-
 
 });
