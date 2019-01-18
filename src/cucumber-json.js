@@ -14,13 +14,20 @@ function cucumberJSON(d) {
         jsonCucumber = JSON.parse(shellOut.stdout);
         resolve(
             {
-                domain: d,
-                testType: config.testType || 'all tests',
-                count: jsonCucumber.length,
-                jsonCucumber: jsonCucumber
+                [d]: {
+                    testType: config.testType || 'all tests',
+                    count: totalNumberofTests(jsonCucumber),
+                    jsonCucumber: jsonCucumber
+                }
             }
         );
     });
+}
+
+function totalNumberofTests(jsonCucumber) {
+    return jsonCucumber.reduce(function (a, f) {
+        return a + f.elements.length;
+    }, 0);
 }
 
 function tags(d) {
