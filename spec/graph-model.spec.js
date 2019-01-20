@@ -4,31 +4,21 @@ shell = require('shelljs');
 
 describe('graphModel', function(){
     var config = {
-        domains: [
-            'discovering-content',
-            'live-lesson',
-            'creating-and-adapting-content'
-        ],
-        featuresFolder: './spec/fixtures/features'
-    }
+            domains: [
+                'discovering-content'
+            ]
+    };
 
     beforeEach(function(){
         var data = [
-
             [
-                { 'discovering-content': { testType: 'manual', count: 3, jsonCucumber: [] } },
-                { 'live-lesson': { testType: 'manual', count: 1, jsonCucumber: [] } },
-                { 'creating-and-adapting-content': { testType: 'manual', count: 1, jsonCucumber: [] } }
+                { 'discovering-content': { testType: 'manual', count: 3, jsonCucumber: [] } }
             ],
             [
-                { 'discovering-content': { testType: 'wip', count: 1, jsonCucumber: [] } },
-                { 'live-lesson': { testType: 'wip', count: 1, jsonCucumber: [] } },
-                { 'creating-and-adapting-content': { testType: 'wip', count: 0, jsonCucumber: [] } }
+                { 'discovering-content': { testType: 'wip', count: 1, jsonCucumber: [] } }
             ],
             [
-                { 'discovering-content': { testType: 'all tests', count: 5, jsonCucumber: [] } },
-                { 'live-lesson': { testType: 'all tests', count: 2, jsonCucumber: [] } },
-                { 'creating-and-adapting-content': { testType: 'all tests', count: 2, jsonCucumber: [] } }
+                { 'discovering-content': { testType: 'all tests', count: 5, jsonCucumber: [] } }
             ]
         ];
 
