@@ -38,7 +38,7 @@ function tags(d) {
 }
 
 function command(d) {
-    // console.log("./node_modules/.bin/cucumber-js " + config.featuresFolder + " --tags  \"" + tags(d) + "\" --format=json");
+    //console.log("./node_modules/.bin/cucumber-js " + config.featuresFolder + " --tags  \"" + tags(d) + "\" --format=json");
     return "./node_modules/.bin/cucumber-js " + config.featuresFolder + " --tags  \"" + tags(d) + "\" --format=json";
 }
 

@@ -22,24 +22,24 @@ describe('cucumberJSON', function() {
             }
         });
 
-        it('has an object per domain', function(done) {
-            cucumberJSON.fetch(config, shell)
-            .then(function(domainData) {
-                expect(domainData.length).toEqual(config.domains.length);
-                done();
-            });
-        });
+        // it('has an object per domain', function(done) {
+        //     cucumberJSON.fetch(config, shell)
+        //     .then(function(domainData) {
+        //         expect(domainData.length).toEqual(config.domains.length);
+        //         done();
+        //     });
+        // });
 
-        it('domain objects should look like this', function(done) {
-            cucumberJSON.fetch(config, shell)
-            .then(function(domainData) {
-                var discoveringContent = domainData[0][config.domains[0]];
-                expect(discoveringContent.testType).toEqual('manual');
-                expect(discoveringContent.count).toEqual(3);
-                expect(discoveringContent.jsonCucumber.length).toEqual(2);
-                done();
-            });
-        });
+        // it('domain objects should look like this', function(done) {
+        //     cucumberJSON.fetch(config, shell)
+        //     .then(function(domainData) {
+        //         var discoveringContent = domainData[0][config.domains[0]];
+        //         expect(discoveringContent.testType).toEqual('manual');
+        //         expect(discoveringContent.count).toEqual(3);
+        //         expect(discoveringContent.jsonCucumber.length).toEqual(2);
+        //         done();
+        //     });
+        // });
     });
 
     describe('shell', function() {

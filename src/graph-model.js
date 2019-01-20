@@ -1,7 +1,8 @@
-var cucumberJSON = require('./cucumber-json.js'),
-shell = require('shelljs');
+var randomColorRGB = require('random-color-rgb'),
+cucumberJSON,
+shell;
 
-function model(data) {
+function transform(data) {
     return data.reduce(function(a,d){
         var domain = Object.keys(d)[0];
         if(!(domain in a)) {
@@ -28,7 +29,6 @@ function model(data) {
     }, {});
 }
 
-
 function coverageData(config) {
     return ['manual', 'wip', false].map(function (t) {
         config.testType = t;
@@ -43,10 +43,36 @@ function flatten(array) {
     return [].concat.apply([], array);
 }
 
-function build(config) {
+function model(data) {
+    var domains = Object.keys(data);
+    var sets = {};
+    sets['datasets'] = domains.map(function(d){
+        return {
+            label: d,
+            data: [
+                {
+                    x: automated(data[d]),
+                    y: data[d].manual,
+                    r: data[d].total
+                }
+            ],
+            fillColor: "rgba(0,0,0,0)",
+            backgroundColor: randomColorRGB({ opacity: 0.6 })
+        }
+    });
+    return sets;
+}
+
+function automated(data) {
+    return (data.total - (data.manual + data.wip));
+}
+
+function build(config, cj, shellObj) {
+    cucumberJSON = cj;
+    shell = shellObj;
     return Promise.all(coverageData(config))
     .then(function(data){
-        return model(flatten(data));
+        return model(transform(flatten(data)));
     });
 }
 
