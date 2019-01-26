@@ -1,0 +1,8 @@
+{
+    "domains": [
+        "discovering-content",
+        "live-lesson",
+        "creating-and-adapting-content"
+    ],
+    "featuresFolder": "./spec/fixtures/features"
+}

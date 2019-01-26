@@ -6,6 +6,9 @@
   "scripts": {
     "test": "jasmine"
   },
+  "bin": {
+    "case-coverage": "./src/cli.js"
+  },
   "author": "Steven James Cook",
   "license": "ISC",
   "devDependencies": {
