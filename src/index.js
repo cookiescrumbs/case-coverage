@@ -2,7 +2,7 @@ var graphModel = require('./graph-model.js'),
     cucumberJSON = require('./cucumber-json.js'),
     shell = require('shelljs'),
     fs = require('fs'),
-    path = folder();
+    path;
 
 function readConfigFile(configLoc) {
     return new Promise(function (resolve, reject) {
@@ -30,8 +30,8 @@ function saveGraphData(model, path) {
     });
 }
 
-function folder() {
-    return '../case-coverage-graph#' + (Math.floor(Date.now() / 1000));
+function folder(path) {
+    return (path) ? path : '../case-coverage-graph#' + (Math.floor(Date.now() / 1000));
 }
 
 function makeCoverageFolder(path) {
@@ -51,21 +51,27 @@ function cpIndexHtmlFile(path) {
     });
 }
 
-function run(configLoc) {
-    makeCoverageFolder(path);
-    readConfigFile(configLoc)
-        .then(function (config) {
-            return graphModel.build(config, cucumberJSON, shell);
-        })
-        .then(function (model) {
-            saveGraphData(model, path);
-        })
-        .then(function () {
-            cpIndexHtmlFile(path);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+function run(configPath, caseCoverageFolderLocation = false) {
+    path = folder(caseCoverageFolderLocation);
+    return new Promise(function(resolve, reject){
+        makeCoverageFolder(path);
+        readConfigFile(configPath)
+            .then(function (config) {
+                return graphModel.build(config, cucumberJSON, shell);
+            })
+            .then(function (model) {
+                saveGraphData(model, path);
+            })
+            .then(function () {
+                cpIndexHtmlFile(path);
+            })
+            .then(function () {
+                resolve();
+            })
+            .catch(function (error) {
+                reject(error);
+            });
+    });
 }
 
 module.exports = {

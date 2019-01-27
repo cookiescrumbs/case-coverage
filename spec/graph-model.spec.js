@@ -22,15 +22,15 @@ describe('graphModel', function(){
             ]
         ];
 
-        var fetchPromiseZero = new Promise(function (resolve, reject) {
+        var fetchPromiseZero = new Promise(function (resolve) {
             resolve(data[0]);
         });
 
-        var fetchPromiseFirst = new Promise(function (resolve, reject) {
+        var fetchPromiseFirst = new Promise(function (resolve) {
             resolve(data[1]);
         });
 
-        var fetchPromiseSecond = new Promise(function (resolve, reject) {
+        var fetchPromiseSecond = new Promise(function (resolve) {
             resolve(data[2]);
         });
 
