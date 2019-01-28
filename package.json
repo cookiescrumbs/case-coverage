@@ -4,7 +4,8 @@
   "description": "Extracts use case coverage from a projects cucumber features",
   "main": "index.js",
   "scripts": {
-    "test": "jasmine"
+    "test": "jasmine",
+    "test:e2e": "jasmine ./spec/case-coverage.spec.js"
   },
   "bin": {
     "case-coverage": "./src/cli.js"
