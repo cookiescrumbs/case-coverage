@@ -31,7 +31,7 @@ function saveGraphData(model, path) {
 }
 
 function folder(path) {
-    return (path) ? path : '../case-coverage-graph#' + (Math.floor(Date.now() / 1000));
+    return (path) ? path : './case-coverage-graph#' + (Math.floor(Date.now() / 1000));
 }
 
 function makeCoverageFolder(path) {
@@ -41,7 +41,7 @@ function makeCoverageFolder(path) {
 
 function cpIndexHtmlFile(path) {
     return new Promise(function (resolve, reject) {
-        var shellOut = shell.exec('cp src/index.html ' + path);
+        var shellOut = shell.exec('cp ./node_modules/@cookiescrumbs/case-coverage/src/index.html ' + path);
         if (shellOut.stderr) {
             reject(shellOut.stderr);
         } else {
@@ -60,16 +60,13 @@ function run(configPath, caseCoverageFolderLocation = false) {
                 return graphModel.build(config, cucumberJSON, shell);
             })
             .then(function (model) {
-                saveGraphData(model, path);
+                saveGraphData(model, path)
+                .catch(function(error) {});
+                
             })
             .then(function () {
-                cpIndexHtmlFile(path);
-            })
-            .then(function () {
-                resolve();
-            })
-            .catch(function (error) {
-                reject(error);
+                cpIndexHtmlFile(path)
+                .catch(function(error) {});
             });
     });
 }

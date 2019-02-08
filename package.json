@@ -13,10 +13,10 @@
   "author": "Steven James Cook",
   "license": "ISC",
   "devDependencies": {
-    "cucumber": "^5.1.0",
     "jasmine": "^3.3.1"
   },
   "dependencies": {
+    "cucumber": "^5.1.0",
     "random-color-rgb": "^1.1.1",
     "shelljs": "^0.8.3"
   }
