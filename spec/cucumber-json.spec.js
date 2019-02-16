@@ -20,7 +20,7 @@ describe('cucumberJSON', function() {
             };
             spyOn(shell, 'exec').and.returnValue(shellOut);
             var command = './node_modules/.bin/cucumber-js ./spec/fixtures/features --tags  "@blah-blah and @manual" --format=json';
-            cucumberJSON.fetch(config, shell)
+            cucumberJSON.fetch(config)
             .then(function (domainData) {
                 expect(shell.exec).toHaveBeenCalledWith(command, { silent: true, async: false });
                 expect(domainData).toEqual([
@@ -43,7 +43,7 @@ describe('cucumberJSON', function() {
             delete config.testType;
             spyOn(shell, 'exec').and.returnValue(shellOut);
             var command = './node_modules/.bin/cucumber-js ./spec/fixtures/features --tags  "@blah-blah" --format=json';
-            cucumberJSON.fetch(config, shell)
+            cucumberJSON.fetch(config)
             .then(function (domainData) {
                 expect(shell.exec).toHaveBeenCalledWith(command, { silent: true, async: false });
                 expect(domainData).toEqual([
@@ -64,7 +64,7 @@ describe('cucumberJSON', function() {
                 stderr: 'Error: something went wrong....'
             };
             spyOn(shell, 'exec').and.returnValue(shellOut);
-            cucumberJSON.fetch(config, shell)
+            cucumberJSON.fetch(config)
             .then(function (domainData) {
                 expect(domainData).toEqual('Error: something went wrong....');
                 done();

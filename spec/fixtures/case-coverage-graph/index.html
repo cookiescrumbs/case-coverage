@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+  <title>Case Coverage</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+  <script src="graph-data.js"></script>
+  <style type="text/css">
+    canvas {
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container" style="width: 100%;">
+    <canvas id="canvas"></canvas>
+  </div>
+  <script>
+    new Chart(document.getElementById("canvas"), {
+       type: "bubble",
+        data: graphData,
+        options: {
+          title: {
+            display: true,
+            text: 'Automated, Manual & Total number of Requirements per Domain'
+          }, scales: {
+            yAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: "Manual"
+              }
+            }],
+            xAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: "Automated"
+              }
+            }]
+          },
+           legend: {
+              display: true,
+              position: "bottom"
+            }
+        }
+    });
+  </script>
+</body>
+
+</html>

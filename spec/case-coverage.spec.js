@@ -8,7 +8,6 @@ fs = require('fs'),
 shell = require('shelljs'),
 config;
 
-
 function readGraphDataFile() {
     return new Promise(function (resolve) {
         fs.readFile(caseCoverageFolder + '/graph-data.js', 'utf8', function (error, data) {
@@ -22,13 +21,14 @@ function readGraphDataFile() {
     })
 }
 
+function cleanUpCaseCoverageFolder() { 
+    shell.exec('rm -rf ' + caseCoverageFolder);
+}
+
 describe('caseCoverage', function () {
 
-    afterEach(function() {
-        shell.exec('rm -rf ' + caseCoverageFolder);
-    });
-
     beforeEach(function(){
+        cleanUpCaseCoverageFolder();
         config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
     });
 
@@ -43,6 +43,17 @@ describe('caseCoverage', function () {
                 });
 
         });
+
+        describe('Config path can\'t be found', () => {
+            it('should give you Error message that the config can\'t be found', (done) => {
+                caseCoverage.run('./there/is/no/config.json', caseCoverageFolder)
+                .catch(function(error) {
+                    expect(error.message).toEqual("ENOENT: no such file or directory, open './there/is/no/config.json'");
+                    done();
+                })
+            });
+        });
+
     });
 
 });

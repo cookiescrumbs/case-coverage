@@ -1,6 +1,6 @@
 var randomColorRGB = require('random-color-rgb'),
-cucumberJSON,
-shell;
+shell = require('shelljs'),
+cucumberJSON;
 
 function transform(data) {
     return data.reduce(function(a,d){
@@ -64,12 +64,13 @@ function model(data) {
 }
 
 function automated(data) {
-    return (data.total - (data.manual + data.wip));
+    var num  = (data.total - (data.manual + data.wip));
+    return (num < 0)? 0 : num;
 }
 
-function build(config, cj, shellObj) {
+
+function build(config, cj) {
     cucumberJSON = cj;
-    shell = shellObj;
     return Promise.all(coverageData(config))
     .then(function(data){
         return model(transform(flatten(data)));

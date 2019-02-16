@@ -1,4 +1,4 @@
-var shell,
+var shell = require('shelljs'),
 config;
 
 function cucumberJSON(d) {
@@ -48,8 +48,7 @@ function arrayOfCucumberJSONPromises(domains) {
     });
 }
 
-function fetch(conf, shellObj) {
-    shell = shellObj;
+function fetch(conf) {
     config = conf;
     return Promise.all(arrayOfCucumberJSONPromises(config.domains))
     .then(function(arrayOfCucumberJSON) {
