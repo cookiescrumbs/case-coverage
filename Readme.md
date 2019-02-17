@@ -56,5 +56,4 @@ You'll need to add your domain tags to the case-coverage JSON file along with th
 case-coverage  "./case-coverage.json"
 ````
 
-This package creates a `case-coverage` folder in the directory you run it containing the graph.
-
+This package creates a `case-coverage` folder containing the graph inside  the directory you run it in.
