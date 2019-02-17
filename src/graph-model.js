@@ -29,7 +29,7 @@ function transform(data) {
     }, {});
 }
 
-function coverageData(config) {
+function coverageData(config, cucumberJSON) {
     return ['manual', 'wip', false].map(function (t) {
         config.testType = t;
         return cucumberJSON.fetch(config, shell)
@@ -69,9 +69,8 @@ function automated(data) {
 }
 
 
-function build(config, cj) {
-    cucumberJSON = cj;
-    return Promise.all(coverageData(config))
+function build(config, cucumberJSON) {
+    return Promise.all(coverageData(config, cucumberJSON))
     .then(function(data){
         return model(transform(flatten(data)));
     });
