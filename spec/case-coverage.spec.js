@@ -27,8 +27,11 @@ function cleanUpCaseCoverageFolder() {
 
 describe('caseCoverage', function () {
 
-    beforeEach(function(){
+    afterEach(function(){
         cleanUpCaseCoverageFolder();
+    });
+
+    beforeEach(function(){
         config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
     });
 
