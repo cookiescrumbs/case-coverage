@@ -1,6 +1,5 @@
 var randomColorRGB = require('random-color-rgb'),
-shell = require('shelljs'),
-cucumberJSON;
+shell = require('shelljs');
 
 function transform(data) {
     return data.reduce(function(a,d){
@@ -31,12 +30,17 @@ function transform(data) {
 
 function coverageData(config, cucumberJSON) {
     return ['manual', 'wip', false].map(function (t) {
-        config.testType = t;
-        return cucumberJSON.fetch(config, shell)
+        var copyOfConfig = copyConfig(config);
+        copyOfConfig.testType = t;
+        return cucumberJSON.fetch(copyOfConfig)
             .then(function (domainData) {
                 return domainData;
             });
     });
+}
+
+function copyConfig(config) { 
+    return Object.assign({}, config);
 }
 
 function flatten(array) {
