@@ -1,11 +1,11 @@
 var shell = require('shelljs'),
 config;
 
-function cucumberJSON(d) {
+function cucumberJSON(domain) {
     return new Promise(function(resolve, reject){
         var jsonCucumber;
         var shellOut = shell.exec(
-            command(d),
+            command(domain),
             { silent: true, async: false }
         );
         if (shellOut.stderr) {
@@ -14,7 +14,7 @@ function cucumberJSON(d) {
         jsonCucumber = JSON.parse(shellOut.stdout);
         resolve(
             {
-                [d]: {
+                [domain]: {
                     testType: config.testType || 'all tests',
                     count: totalNumberofTests(jsonCucumber),
                     jsonCucumber: jsonCucumber

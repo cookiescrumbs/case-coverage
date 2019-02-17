@@ -33,6 +33,9 @@ describe('caseCoverage', function () {
 
     beforeEach(function(){
         cleanUpCaseCoverageFolder();
+    });
+
+    beforeEach(function(){
         config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
     });
 
