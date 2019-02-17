@@ -1,7 +1,7 @@
-var graphModel = require('./graph-model.js'),
+var graphModel   = require('./graph-model.js'),
     cucumberJSON = require('./cucumber-json.js'),
-    shell = require('shelljs'),
-    fs = require('fs'),
+    shell        = require('shelljs'),
+    fs           = require('fs'),
     path;
 
 function readConfigFile(configLoc) {

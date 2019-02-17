@@ -1,9 +1,8 @@
-var shell = require('shelljs'),
-    config;
+var shell   = require('shelljs'),
+    compose = require('./compose');
 
-function fetch(conf) {
-    config = conf;
-    return Promise.all(arrayOfCucumberJSONPromises(config.domains))
+function fetch(config) {
+    return Promise.all(promises(config))
         .then(function(arrayOfCucumberJSON) {
             return arrayOfCucumberJSON;
         })
@@ -12,53 +11,50 @@ function fetch(conf) {
         });
 }
 
-function arrayOfCucumberJSONPromises(domains) {
-    return domains.map(function (domain) {
-        return cucumberJSON(domain);
-    });
-}
+function promises(config) {
+    return config.domains.map(function (domain) {
+        return new Promise(function(resolve, reject) {
+            var process, features;
 
-function cucumberJSON(d) {
-    return new Promise(function(resolve, reject) {
-        var jsonCucumber;
-        var shellOut = shell.exec(command(d), { silent: true, async: false });
-        if (shellOut.stderr) {
-            reject(shellOut.stderr);
-        }
-        jsonCucumber = JSON.parse(shellOut.stdout);
-        resolve(
-            {
-                [d]: {
-                    testType:     config.testType || 'all tests',
-                    count:        totalNumberofTests(jsonCucumber),
-                    jsonCucumber: jsonCucumber
-                }
+            process = exec(domain, config);
+            if (process.stderr) {
+                reject(process.stderr);
+                return;
             }
-        );
-    });
+
+            features = JSON.parse(process.stdout);
+            resolve({
+                [domain] : {
+                    testType:     config.testType || 'all tests',
+                    count:        count(features),
+                    jsonCucumber: features
+                }
+            });
+        });
+    });    
 }
 
-function command(domain) {
-    var tags = "@" + domain;
+function count(features) {
+    return features.reduce(function (total, feature) {
+        return total + feature.elements.length;
+    }, 0);
+}
+
+function exec(domain, config) {
+    var command, tags;
+
+    tags = "@" + domain;
 
     if (config.testType) {
         tags += " and @" + config.testType;
     }
 
-    var result = "./node_modules/.bin/cucumber-js "
+    command = "./node_modules/.bin/cucumber-js "
         + config.featuresFolder
         + " --tags \"" + tags + "\""
-        + " --format=json"
+        + " --format=json";
 
-    console.log(result);
-
-    return result;
-}
-
-function totalNumberofTests(jsonCucumber) {
-    return jsonCucumber.reduce(function (a, f) {
-        return a + f.elements.length;
-    }, 0);
+    return shell.exec(command, { silent: true, async: false });
 }
 
 module.exports = {

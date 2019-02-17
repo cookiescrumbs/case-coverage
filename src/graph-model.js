@@ -1,21 +1,25 @@
 var randomColorRGB = require('random-color-rgb'),
     shell          = require('shelljs'),
-    pipeline       = require('./pipeline');
+    compose        = require('./compose');
 
 function build(config, cucumberJSON) {
     return Promise
         .all(coverageData(config, cucumberJSON))
-        .then(pipeline(flatten, transform, model));
+        .then(compose(flatten, transform, model));
 }
 
 function coverageData(config, cucumberJSON) {
     return ['manual', 'wip', false].map(function (testType) {
         return cucumberJSON
-            .fetch(Object.assign({ testType: testType }, config))
+            .fetch(cloned(config, testType))
             .then(function (domainData) {
                 return domainData;
             });
     });
+}
+
+function cloned(config, testType) {
+    return Object.assign({ testType: testType }, config);
 }
 
 function transform(data) {
