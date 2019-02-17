@@ -19,7 +19,7 @@ function coverageData(config, cucumberJSON) {
 }
 
 function cloned(config, testType) {
-    return Object.assign({ testType: testType }, config);
+    return Object.assign(config, { testType: testType });
 }
 
 function transform(data) {
