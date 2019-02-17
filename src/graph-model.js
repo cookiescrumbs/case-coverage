@@ -1,11 +1,11 @@
 var randomColorRGB = require('random-color-rgb'),
     shell          = require('shelljs'),
-    compose        = require('./compose');
+    pipeline       = require('./pipeline');
 
 function build(config, cucumberJSON) {
     return Promise
         .all(coverageData(config, cucumberJSON))
-        .then(compose(model, transform, flatten));
+        .then(pipeline(flatten, transform, model));
 }
 
 function coverageData(config, cucumberJSON) {

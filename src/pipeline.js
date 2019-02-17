@@ -2,7 +2,7 @@
 // based on:
 //  https://blakeembrey.com/articles/2014/01/compose-functions-javascript/
 //
-// but done in the opposite order, so it looks like an elixir pipeline: 
+// but done in the opposite order, so it looks like an elixir pipeline:
 //  "a |> b |> c"
 //
 // so:
