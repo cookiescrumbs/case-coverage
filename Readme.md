@@ -1,3 +1,14 @@
+<h1 align="center">Case Coverage</h1>
+<p align="center">
+  <b>Visual representation of your apps case coverage.</b>
+</p>
+
+<p align="center">
+  <img width="250" src="/case-coverage.png">
+</p>
+
+<br>
+
 ## Description :
 Extracts use case coverage from a projects cucumber features and creates a bubble graph.
 
@@ -24,7 +35,6 @@ Split your app into domains and tag your feature files with an appropriate `@tag
 Scenarios can be tagged `@manual` or `@wip`. It's assumed the rest will be automated.
 You'll need to add your domain tags to the case-coverage JSON file along with the location of the feature files.
 
-
 ````json
 {
    "domains": [
@@ -46,4 +56,5 @@ You'll need to add your domain tags to the case-coverage JSON file along with th
 case-coverage  "./case-coverage.json"
 ````
 
+This package creates a `case-coverage` folder in the directory you run it containing the graph.
 
