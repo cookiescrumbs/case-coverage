@@ -9,10 +9,9 @@ function build(config, cucumberJSON) {
 }
 
 function coverageData(config, cucumberJSON) {
-    return ['manual', 'wip', false].map(function (t) {
-        var copyOfConfig = copyConfig(config);
-        copyOfConfig.testType = t;
-        return cucumberJSON.fetch(copyOfConfig)
+    return ['manual', 'wip', false].map(function (testType) {
+        return cucumberJSON
+            .fetch(Object.assign({ testType: testType }, config))
             .then(function (domainData) {
                 return domainData;
             });
@@ -44,10 +43,6 @@ function transform(data) {
         }
         return a;
     }, {});
-}
-
-function copyConfig(config) { 
-    return Object.assign({}, config);
 }
 
 function flatten(array) {

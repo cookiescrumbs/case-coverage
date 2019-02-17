@@ -19,7 +19,7 @@ describe('cucumberJSON', function() {
                 stdout: JSON.stringify([{ jsonCucumber: 'feature: blah', elements: [[{}], [{}]] }, { jsomCucumber: 'feature: blah', elements: [[{}], [{}], [{}]]}])
             };
             spyOn(shell, 'exec').and.returnValue(shellOut);
-            var command = './node_modules/.bin/cucumber-js ./spec/fixtures/features --tags  "@blah-blah and @manual" --format=json';
+            var command = './node_modules/.bin/cucumber-js ./spec/fixtures/features --tags "@blah-blah and @manual" --format=json';
             cucumberJSON.fetch(config)
             .then(function (domainData) {
                 expect(shell.exec).toHaveBeenCalledWith(command, { silent: true, async: false });
@@ -42,7 +42,7 @@ describe('cucumberJSON', function() {
             };
             delete config.testType;
             spyOn(shell, 'exec').and.returnValue(shellOut);
-            var command = './node_modules/.bin/cucumber-js ./spec/fixtures/features --tags  "@blah-blah" --format=json';
+            var command = './node_modules/.bin/cucumber-js ./spec/fixtures/features --tags "@blah-blah" --format=json';
             cucumberJSON.fetch(config)
             .then(function (domainData) {
                 expect(shell.exec).toHaveBeenCalledWith(command, { silent: true, async: false });

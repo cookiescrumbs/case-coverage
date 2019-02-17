@@ -13,18 +13,15 @@ function fetch(conf) {
 }
 
 function arrayOfCucumberJSONPromises(domains) {
-    return domains.map(function (d) {
-        return cucumberJSON(d);
+    return domains.map(function (domain) {
+        return cucumberJSON(domain);
     });
 }
 
 function cucumberJSON(d) {
     return new Promise(function(resolve, reject) {
         var jsonCucumber;
-        var shellOut = shell.exec(
-            command(d),
-            { silent: true, async: false }
-        );
+        var shellOut = shell.exec(command(d), { silent: true, async: false });
         if (shellOut.stderr) {
             reject(shellOut.stderr);
         }
@@ -41,9 +38,20 @@ function cucumberJSON(d) {
     });
 }
 
-function command(d) {
-    var result = "./node_modules/.bin/cucumber-js " + config.featuresFolder + " --tags  \"" + tags(d) + "\" --format=json"
+function command(domain) {
+    var tags = "@" + domain;
+
+    if (config.testType) {
+        tags += " and @" + config.testType;
+    }
+
+    var result = "./node_modules/.bin/cucumber-js "
+        + config.featuresFolder
+        + " --tags \"" + tags + "\""
+        + " --format=json"
+
     console.log(result);
+
     return result;
 }
 
@@ -51,13 +59,6 @@ function totalNumberofTests(jsonCucumber) {
     return jsonCucumber.reduce(function (a, f) {
         return a + f.elements.length;
     }, 0);
-}
-
-function tags(d) {
-    if (config.testType) {
-       return  "@" + d + " and @" + config.testType;
-    }
-    return "@" + d + "";
 }
 
 module.exports = {
