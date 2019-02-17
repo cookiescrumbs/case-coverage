@@ -1,12 +1,16 @@
 {
   "name": "@cookiescrumbs/case-coverage",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Extracts use case coverage from a projects cucumber features",
-  "main": "index.js",
   "scripts": {
     "test": "jasmine",
     "test:e2e": "jasmine ./spec/case-coverage.spec.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cookiescrumbs/case-coverage"
+  },
+  "homepage": "https://github.com/cookiescrumbs/case-coverage",
   "bin": {
     "case-coverage": "./src/cli.js"
   },
