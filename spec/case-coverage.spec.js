@@ -27,7 +27,11 @@ function cleanUpCaseCoverageFolder() {
 
 describe('caseCoverage', function () {
 
-    afterEach(function(){
+    afterEach(function (){
+        cleanUpCaseCoverageFolder();
+    });
+
+    beforeEach(function(){
         cleanUpCaseCoverageFolder();
     });
 
