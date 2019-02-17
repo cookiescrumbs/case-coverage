@@ -14,7 +14,7 @@ function fetch(config) {
 
 function promises(config) {
     return config.domains.map(function (domain) {
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
             var process, features;
 
             process = exec(domain, config);
