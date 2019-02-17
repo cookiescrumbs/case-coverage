@@ -4,7 +4,7 @@
 </p>
 
 <p align="center">
-  <img width="250" src="/case-coverage.png">
+  <img src="/case-coverage-graph.png">
 </p>
 
 <br>
