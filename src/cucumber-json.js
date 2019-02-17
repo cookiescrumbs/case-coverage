@@ -2,7 +2,8 @@ var shell   = require('shelljs'),
     compose = require('./compose');
 
 function fetch(config) {
-    return Promise.all(promises(config))
+    return Promise
+        .all(promises(config))
         .then(function(arrayOfCucumberJSON) {
             return arrayOfCucumberJSON;
         })
