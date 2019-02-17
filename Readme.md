@@ -1,3 +1,4 @@
+https://travis-ci.org/cookiescrumbs/case-coverage.svg?branch=master
 <h1 align="center">Case Coverage</h1>
 <p align="center">
   <b>Visual representation of your apps case coverage.</b>
@@ -8,6 +9,8 @@
 </p>
 
 <br>
+
+[![Build Status][travis-image]][travis-url]
 
 ## Description :
 Extracts use case coverage from a projects cucumber features and creates a bubble graph.
