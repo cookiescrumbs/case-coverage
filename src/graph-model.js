@@ -1,5 +1,23 @@
 var randomColorRGB = require('random-color-rgb'),
-shell = require('shelljs');
+    shell          = require('shelljs'),
+    compose        = require('./compose');
+
+function build(config, cucumberJSON) {
+    return Promise
+        .all(coverageData(config, cucumberJSON))
+        .then(compose(model, transform, flatten));
+}
+
+function coverageData(config, cucumberJSON) {
+    return ['manual', 'wip', false].map(function (t) {
+        var copyOfConfig = copyConfig(config);
+        copyOfConfig.testType = t;
+        return cucumberJSON.fetch(copyOfConfig)
+            .then(function (domainData) {
+                return domainData;
+            });
+    });
+}
 
 function transform(data) {
     return data.reduce(function(a,d){
@@ -26,17 +44,6 @@ function transform(data) {
         }
         return a;
     }, {});
-}
-
-function coverageData(config, cucumberJSON) {
-    return ['manual', 'wip', false].map(function (t) {
-        var copyOfConfig = copyConfig(config);
-        copyOfConfig.testType = t;
-        return cucumberJSON.fetch(copyOfConfig)
-            .then(function (domainData) {
-                return domainData;
-            });
-    });
 }
 
 function copyConfig(config) { 
@@ -70,14 +77,6 @@ function model(data) {
 function automated(data) {
     var num  = (data.total - (data.manual + data.wip));
     return (num < 0)? 0 : num;
-}
-
-
-function build(config, cucumberJSON) {
-    return Promise.all(coverageData(config, cucumberJSON))
-    .then(function(data){
-        return model(transform(flatten(data)));
-    });
 }
 
 module.exports = {
