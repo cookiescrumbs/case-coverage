@@ -1,6 +1,6 @@
 {
   "name": "@cookiescrumbs/case-coverage",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Extracts use case coverage from a projects cucumber features",
   "scripts": {
     "test": "jasmine",
