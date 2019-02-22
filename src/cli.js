@@ -1,9 +1,13 @@
 #!/usr/bin/env node
 
-var [ , , ... args ] = process.argv,
-configPath       = args[0] || './spec/fixtures/case-coverage.json',
-caseCoverage     = require('./index.js');
+const caseCoverage = require('./index.js');
+
+const [, , ...args] = process.argv;
+const configPath = args[0] || './spec/fixtures/case-coverage.json';
+const Console = console;
 
 caseCoverage
-    .run(configPath)
-    .catch(console.log);
+  .run(configPath)
+  .catch((error) => {
+    Console.error(error);
+  });

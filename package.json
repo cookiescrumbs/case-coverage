@@ -4,7 +4,8 @@
   "description": "Extracts use case coverage from a projects cucumber features",
   "scripts": {
     "test": "jasmine",
-    "test:e2e": "jasmine ./spec/case-coverage.spec.js"
+    "test:e2e": "jasmine ./spec/case-coverage.spec.js",
+    "lint": "./node_modules/.bin/eslint ./"
   },
   "repository": {
     "type": "git",
@@ -17,7 +18,11 @@
   "author": "Steven James Cook",
   "license": "ISC",
   "devDependencies": {
-    "jasmine": "^3.3.1"
+    "eslint": "^5.14.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "jasmine": "^3.3.1",
+    "pryjs": "^1.0.3"
   },
   "dependencies": {
     "copy": "^0.3.2",
