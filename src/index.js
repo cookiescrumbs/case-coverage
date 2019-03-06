@@ -38,10 +38,18 @@ function makeCoverageFolder(path) {
   console.log(`coverage folder created at ${path}`);
 }
 
+function indexLocation() {
+  const sysNodeModFl = shell.exec('npm root -g').replace(/\n/g, '');
+  const indexLoc = `${sysNodeModFl}/@cookiescrumbs/case-coverage/src/index.html`;
+  if (fs.existsSync(indexLoc)) {
+    return indexLoc;
+  }
+  return './node_modules/@cookiescrumbs/case-coverage/src/index.html';
+}
+
 function cpIndexHtmlFile(path) {
   return new Promise((resolve, reject) => {
-    const sysNodeModFl = shell.exec('npm root -g').replace(/\n/g, '');
-    const indexLoc = `${sysNodeModFl}/@cookiescrumbs/case-coverage/src/index.html`;
+    const indexLoc = indexLocation();
     const shellOut = shell.exec(`cp ${indexLoc} ${path}`);
     if (shellOut.stderr) {
       reject(shellOut.stderr);
